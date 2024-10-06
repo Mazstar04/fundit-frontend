@@ -33,6 +33,7 @@ import Badge from './badge';
 import MarkdownComponent from './markdown-component';
 import ImageCarousel from './image-carousel';
 import TabNavigation from './tab-navigation';
+import RevenueCard from './revenue-card-component';
 
 export {
   BasicInput,
@@ -68,4 +69,5 @@ export {
   ImageCarousel,
   TabNavigation,
   WithdrawalMobileRowComponent,
+  RevenueCard,
 };

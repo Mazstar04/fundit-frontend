@@ -21,6 +21,7 @@ import IPagination from './requests/i-pagination';
 import INavOption from './i-nav-option';
 import ICampaign from './i-campaign';
 import {IDonation, IWithdrawal} from './i-transaction';
+import {IRevenue} from './i-revenue';
 import { IDataTableProps, ITableColumnConfig } from './table/i-table';
 
 export type {
@@ -45,7 +46,8 @@ export type {
   IListResponse,
   IGetUserResponse,
   INavOption,
-  IDonation, IWithdrawal,
+  IDonation, 
   IWithdrawal,
+  IRevenue,
   ICampaign,
 };

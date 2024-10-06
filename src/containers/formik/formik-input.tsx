@@ -47,8 +47,11 @@ export interface CustomInputProps {
   isCreatable?: boolean;
   min?: any;
   max?: any;
+  maxLength?: number;
+  minLength?: number;
   acceptedFileTypes?: Accept;
   onChange?: (e: any) => void;
+  onBlur?: (e: any) => void;
   validate?: (value: any) => undefined | string | Promise<any>;
 }
 

@@ -12,26 +12,23 @@ export default function BasicDropdown({
   onChange,
   value = null,
   useDefaultConfig = false,
-  displayWidth = '100%',
-  dropdownWidth = '100%',
   isCreatable = false,
 }: IDropdownProps) {
   const customStyles: StylesConfig = {
     control: (base: any, state) => ({
       ...base,
       border: 0,
+      outline: '1px solid #E1E5EB',
       fontSize: '14px',
-      backgroundColor: '#F9FAFB',
-      height: "56px",
+      backgroundColor: 'white',
       padding: '6px',
-      borderRadius: '32px',
+      borderRadius: '8px',
       boxShadow: 'none',
-      width: displayWidth,
+      width: '100%',
     }),
     menu: (base: any, state) => ({
       ...base,
       position: 'absolute',
-      width: dropdownWidth
     }),
     singleValue: (base: any, state) => ({
       ...base,
@@ -40,7 +37,7 @@ export default function BasicDropdown({
     }),
     multiValue: (base: any, state) => ({
       ...base,
-      backgroundColor: '#00442D',
+      backgroundColor: '#ED353F',
       color: 'white',
     }),
     multiValueLabel: (base: any, state) => ({
@@ -52,15 +49,15 @@ export default function BasicDropdown({
     placeholder: (base: any, state) => ({
       ...base,
       fontSize: '14px',
-      color: "#98A2B3",
+      fontWeight: '500',
     }),
     option: (base: any, state) => ({
       ...base,
       fontSize: '12px',
       backgroundColor: state.isSelected
-        ? '#00442D'
+        ? '#ED353F'
         : state.isFocused
-          ? '#EDF4EE'
+          ? '#FDF0F1'
           : '',
       color: state.isSelected ? 'white' : '#000000',
       ':active': {

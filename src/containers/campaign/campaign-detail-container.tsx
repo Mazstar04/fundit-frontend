@@ -173,7 +173,7 @@ const CampaignDetailContainer = ({
       <MarkdownComponent text={campaign.description} />
       <ModalContainer
         title="Donate"
-        maxWidth="540px"
+        maxWidth="440px"
         isOpen={isOpen}
         setIsOpen={setIsOpen}
       >

@@ -1,36 +1,48 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Fund It - Donation Platform
 
-## Getting Started
+**Fund It** is a donation-based platform designed to allow users to create and manage fundraising campaigns effortlessly. It integrates Paystack for secure donation processing and offers a user-friendly interface for managing donations and withdrawing funds.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### 1. User Registration & Authentication
+- Users can sign up and log in securely.
+- Authentication is handled through secure methods ensuring data privacy and safety.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Campaign Creation
+- Registered users can create fundraising campaigns.
+- Each campaign requires a **Title**, **Description**, **Target Amount**, and a **Campaign Image**.
+- Every campaign is given a unique, shareable link.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 3. Campaign Donations
+- External users can donate to any campaign using the campaign link.
+- Payments are processed securely through **Paystack**, ensuring safe transactions for donors.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### 4. Campaign Management
+- Campaign owners can track all donations made to their campaigns.
+- A detailed record of contributors is available, providing transparency and insight into donor information.
+- Users can monitor the progress of their fundraising efforts against their target amount.
 
-## Learn More
+### 5. Wallet & Withdrawals
+- Donations are stored in the user's wallet.
+- Users can withdraw funds accumulated in their wallets at any time.
 
-To learn more about Next.js, take a look at the following resources:
+### 6. Dashboard
+- A personalized dashboard gives users a comprehensive overview of their campaigns.
+- The dashboard includes donation history, campaign performance, and financial activity insights.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Tech Stack
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- **Backend**: .NET Web API
+- **Frontend**: Next.js (TypeScript)
+- **Database**: PostgreSQL
+- **Payment Gateway**: Paystack API
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Usage
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+1. **User Registration**: Sign up to create an account.
+2. **Create Campaign**: Once logged in, navigate to the campaign creation page to start your fundraiser.
+3. **Share Campaign**: Share the unique link generated with potential donors.
+4. **Receive Donations**: Donations can be made via Paystack through the campaign page.
+5. **Monitor Campaign**: View donation history and campaign progress through your dashboard.
+6. **Withdraw Funds**: Withdraw the collected donations from your wallet.

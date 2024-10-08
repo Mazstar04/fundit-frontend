@@ -22,7 +22,6 @@ import Sidebar from './side-bar-component';
 import TopNavComponent from './top-nav-component';
 import Breadcrumb from './breadcrumb';
 import BottomNav from './bottom-nav';
-import InventoryMobileRowComponent from './inventory-mobile-row-component';
 import DonationMobileRowComponent from './donation-row-component';
 import WithdrawalMobileRowComponent from './withdrawal-row-component';
 import ItemRowComponent from './item-row-component';
@@ -58,7 +57,6 @@ export {
   TopNavComponent,
   Breadcrumb,
   BottomNav,
-  InventoryMobileRowComponent,
   ItemRowComponent,
   FilterDropdown,
   DonationMobileRowComponent,

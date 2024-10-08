@@ -3,9 +3,15 @@ import { BasicButton } from "@/components";
 import { FormikForm, FormikInput } from "@containers";
 import { FormikHelpers } from "formik";
 import { Accept } from "react-dropzone";
+import { useMutation } from "@tanstack/react-query";
+import api from "@/api";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 import * as Yup from "yup";
 
 const AddCampaignForm = () => {
+
+  const router = useRouter();
   const initialValues = {
     title: "",
     coverImagePath: "",
@@ -15,10 +21,16 @@ const AddCampaignForm = () => {
     amount: "",
   };
 
+  
+  const addCampaignMutation = useMutation({
+    mutationFn: api.campaign.AddCampaign<any>,
+  });
+
+
   const AddCampaignSchema = Yup.object().shape({
     title: Yup.string().required("Title is required"),
     coverImagePath: Yup.string().required("Cover picture is required"),
-    shortDescription: Yup.string().required("Short description is required"),
+    shortDescription: Yup.string().required("Short description is required").max(150, "Length musnt be more than 150 characters"),
     description: Yup.string().required("Description is required"),
     amount: Yup.number().required("Amount is required"),
   });
@@ -28,11 +40,17 @@ const AddCampaignForm = () => {
     "image/png": [".png"],
   };
 
-  const handleSubmit = async(
+  const handleSubmit = async (
     values: typeof initialValues,
     formikHelpers: FormikHelpers<typeof initialValues>
   ) => {
-    console.log("i", values);
+    try {
+      const response = await addCampaignMutation.mutateAsync(values);
+      toast.success(response.message);
+      router.push("/campaigns");
+    } catch (e: any) {
+      toast.error(e);
+    }
   };
 
   return (
@@ -89,7 +107,7 @@ const AddCampaignForm = () => {
         />
         
       </div>
-      <BasicButton className=" block w-full mt-6" text="Create" />
+      <BasicButton className=" block w-full mt-6" text="Create" loading={addCampaignMutation.isPending}/>
     </FormikForm>
   );
 };

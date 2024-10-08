@@ -59,12 +59,12 @@ export default function FileUpload({
           </div>
         ) : uploaded ? (
           <>
-            <div className="w-[56px] h-[56px] bg-[#EDF4EE] rounded-[50%] flex items-center justify-center">
+            <div className="w-[56px] h-[56px] bg-[#f4eded] rounded-[50%] flex items-center justify-center">
               <FaCircleCheck size={25} color="#ED353F" />
             </div>
             <div className="text-[14px]">
               <p className="text-primary font-[600] text-center">
-                Images{multiple ? "s" : ""} Uploaded
+                Image{multiple ? "s" : ""} Uploaded
               </p>
               <p className="text-[#98A2B3] text-center">{fileName}</p>
             </div>

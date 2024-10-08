@@ -6,7 +6,6 @@ import * as Yup from "yup";
 import { useMutation } from "@tanstack/react-query";
 import api from "@/api";
 import { toast } from "react-toastify";
-import { setItemInStorage, storeKeys } from "@/utils/storage";
 import { useRouter } from "next/navigation";
 
 const SignUpForm = () => {

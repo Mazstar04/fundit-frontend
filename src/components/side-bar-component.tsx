@@ -14,6 +14,7 @@ import { FiLogOut } from "react-icons/fi";
 
 import { usePathname, useRouter } from "next/navigation";
 import LogoComponent from "./logo-component";
+import { removeItemFromStorage, storeKeys } from "@/utils/storage";
 
 interface NavOption {
   text: string;
@@ -48,6 +49,10 @@ const Sidebar = ({
     },
   ]);
 
+  const  logout = ()=>{
+    removeItemFromStorage(storeKeys.userdata);
+    router.push("/sign-in")
+  }
   return (
     <>
       {isNavActive && (
@@ -84,7 +89,7 @@ const Sidebar = ({
           ))}
         </div>
 
-        <button className="flex gap-2 items-center text-[14px] text-primary-200 font-[500] ml-[10px]">
+        <button onClick={logout} className="flex gap-2 items-center text-[14px] text-primary-200 font-[500] ml-[10px]">
           <FiLogOut size={18} />
           <span>Logout</span>
         </button>

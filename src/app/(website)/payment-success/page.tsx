@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import PageContent from './[reference]/page-content';
+import PageContent from './page-content';
 
 export const metadata: Metadata = {
   title: 'Fundit - Payment Successful ',

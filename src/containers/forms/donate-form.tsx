@@ -6,16 +6,20 @@ import * as Yup from "yup";
 import { useMutation } from "@tanstack/react-query";
 import api from "@/api";
 import { toast } from "react-toastify";
-import { setItemInStorage, storeKeys } from "@/utils/storage";
 import { useRouter } from "next/navigation";
 
-const DonateForm = ({maxDonation} : {maxDonation: number}) => {
+const DonateForm = ({maxDonation, campaignId} : {maxDonation: number, campaignId:string}) => {
   const router = useRouter();
   const initialValues = {
+    campaignId,
     email: "",
     username: "",
     amount: "",
   };
+
+  const donateMutation = useMutation({
+    mutationFn: api.transaction.initializePayment<any>,
+  });
 
   const DonateSchema = Yup.object().shape({
     email: Yup.string()
@@ -25,11 +29,16 @@ const DonateForm = ({maxDonation} : {maxDonation: number}) => {
     amount: Yup.number().required("Amount is required").max(maxDonation, `Your donation cannot be more than outstanding amount(${maxDonation})`),
   });
   
-  const handleSubmit = async(
+  const handleSubmit = async (
     values: typeof initialValues,
     formikHelpers: FormikHelpers<typeof initialValues>
   ) => {
-    console.log("i", values);
+    try {
+      const response = await donateMutation.mutateAsync(values);
+      window.location.href = response?.data;
+    } catch (e: any) {
+      toast.error(e);
+    }
   };
 
   
@@ -66,6 +75,7 @@ const DonateForm = ({maxDonation} : {maxDonation: number}) => {
         <BasicButton
           className="mt-2 block w-full"
           text="Donate"
+          loading={donateMutation.isPending}
         />
       </div>
     </FormikForm>

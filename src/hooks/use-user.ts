@@ -13,11 +13,6 @@ export default function useUser() {
     setItemInStorage(storeKeys.userdata, user);
   };
   
-  const getRole = () => {
-    if(user?.role == "storeowner" || user?.role == "store") return "Store Owner";
-    else if(user?.role == "fulfillmentpartner") return "Fulfillment Partner";
-    else if(user?.role == "user") return "User";
-
-  };
-  return { user, updateUser , getRole};
+ 
+  return { user, updateUser };
 }

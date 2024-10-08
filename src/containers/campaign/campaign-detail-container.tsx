@@ -37,7 +37,7 @@ const CampaignDetailContainer = ({
 
   const copyLink = async () => {
     if (id) {
-      const link = `http://localhost:3000/fund/${id}`;
+      const link = `${window.location.origin}/fund/${id}`;
       await navigator.clipboard.writeText(link);
       toast.success(
         isGuest
@@ -71,10 +71,6 @@ const CampaignDetailContainer = ({
         },
         {
           icon: <LuTrash2 size={18} />,
-          method: () => {},
-        },
-        {
-          icon: <HiOutlineUsers size={20} />,
           method: () => {},
         },
         {
@@ -178,7 +174,7 @@ const CampaignDetailContainer = ({
         setIsOpen={setIsOpen}
       >
         <div>
-          <DonateForm maxDonation={campaign.amount - campaign.amountRaised} />
+          <DonateForm maxDonation={campaign.amount - campaign.amountRaised} campaignId={id.toString()}/>
         </div>
       </ModalContainer>
     </div>

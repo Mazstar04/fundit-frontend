@@ -44,9 +44,9 @@ export default function useTableQuery<T>(params: IUseTableQueryParams<T>) {
 
   useEffect(() => {
     if (data) {
-      paging.setTotalItems(data.pagination.totalItems);
-      paging.setMaximumPage(data.pagination.totalPages);
-      paging.setCurrentPage(data.pagination.currentPage);
+      paging.setTotalItems(data.totalCount);
+      paging.setMaximumPage(data.totalPages);
+      paging.setCurrentPage(data.currentPage);
       setPageChanged(false);
     }
   }, [data]);
@@ -58,7 +58,7 @@ export default function useTableQuery<T>(params: IUseTableQueryParams<T>) {
   }, [paging.pageChanged]);
 
   return {
-    data: data?.items,
+    data: data?.data,
     paging,
     isLoading: isLoading || isRefetching,
     refetch,

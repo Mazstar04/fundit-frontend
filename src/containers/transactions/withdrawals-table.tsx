@@ -6,9 +6,21 @@ import { PiDotsThreeVerticalBold } from 'react-icons/pi';
 import usePaging from '@/hooks/use-paging';
 import { format } from 'date-fns';
 import { formatCurrency } from '@/utils/formatter';
+import useTableQuery from "@/hooks/use-table-query";
+import api from "@/api";
+import { useState } from 'react';
 
 const WithdrawalsTable = () => {
-  const paging = usePaging();
+
+  const [filters, setFilters] = useState({
+    search: "",
+  });
+
+  const { data, isLoading, paging, refetch } = useTableQuery({
+    queryName: "withdrawal",
+    queryFunction: api.transaction.getWithdrawals,
+    filters,
+  });
   const withdrawals: IWithdrawal[] = [
     {
       id: "1",
@@ -113,10 +125,10 @@ const WithdrawalsTable = () => {
   return (
     <div className="rounded-t-[10px] overflow-hidden">
       <DataTable
-        data={withdrawals}
+        data={data}
         columns={generateColumns(columnsConfig)}
         paging={paging}
-        loading={false}
+        loading={isLoading}
         hasMobileComponent={true}
         expandedComponent={(data) => <WithdrawalMobileRowComponent withdrawal={data} />}
         actions={[

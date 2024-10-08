@@ -1,7 +1,5 @@
 export const storeKeys = {
   userdata: 'fundit-user',
-  signingUpUser: 'fundit-signingup-user',
-  onboardingdata: 'fundit-onboarding'
 };
 
 export const getItemFromStorage = (key: string, isJson = true) => {

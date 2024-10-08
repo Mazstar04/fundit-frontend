@@ -8,6 +8,7 @@ import api from "@/api";
 import { toast } from "react-toastify";
 import { setItemInStorage, storeKeys } from "@/utils/storage";
 import { useRouter } from "next/navigation";
+import IUser from "@/interfaces/i-user";
 
 const SignInForm = () => {
   const router = useRouter();
@@ -27,9 +28,7 @@ const SignInForm = () => {
     mutationFn: api.auth.signIn<any>,
   });
 
-  const getUserMutation = useMutation({
-    mutationFn: api.user.getUser,
-  });
+
 
   const handleSubmit = async (
     values: typeof initialValues,
@@ -37,32 +36,21 @@ const SignInForm = () => {
   ) => {
     try {
       const res = await signInMutation.mutateAsync(values);
-      const roles = res?.roles?.split(",");
-      const userData = {
-        accessToken: res?.accessToken,
-        refreshToken: res?.refreshToken,
-        role: (roles.length > 1
-          ? roles.find((r: string) => r.toLowerCase() != "user")
-          : roles[0]
-        )?.toLowerCase(),
+      console.log("r", res)
+      const userData: IUser = {
+        accessToken: res?.data?.accessToken,
+        refreshToken: res?.data?.refreshToken,
+        name: res?.data?.name,
+        profileImage: res?.data?.profileImagePath,
+        email: values.email,
+        id: res?.data?.userId
       };
       setItemInStorage(storeKeys.userdata, userData);
-
-      // get user profile  here
-      const user = await getUserMutation.mutateAsync();
-      const loggedInUser = { ...userData, ...user };
-      setItemInStorage(storeKeys.userdata, loggedInUser);
       toast.success("Login successful");
-
-      loggedInUser.role == "user"
-        ? router.push("/onboarding")
-        : router.push("/dashboard");
+      router.push("/dashboard");
     } catch (e: any) {
       toast.error(e);
-      if (e == "Account Unverified, verification resent") {
-        setItemInStorage(storeKeys.signingUpUser, values.email);
-        router.push("/verify-email");
-      }
+     
     }
   };
 
@@ -90,7 +78,7 @@ const SignInForm = () => {
         <BasicButton
           className="mt-2 block w-full"
           text="Login"
-          loading={signInMutation.isPending || getUserMutation.isPending}
+          loading={signInMutation.isPending}
         />
       </div>
     </FormikForm>

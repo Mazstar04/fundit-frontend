@@ -28,19 +28,18 @@ export const setConfig = (contentType: string = "application/json") => {
 
   return config;
 };
-
-export const requestWrapper = async (request: Promise<any>) => {
+export const requestWrapper = async (request: Promise<any>, isGet = false): Promise<any> => {
   try {
     const res = await request;
 
     console.log("RESPONSE: ", res.data);
-    return res.data;
+    return isGet? res.data?.data :res.data;
   } catch (err: any) {
     console.log("e", err.response);
 
     
-    if (err.response?.data?.detail) {
-      throw err.response.data.detail;
+    if (err.response?.data) {
+      throw err.response.data;
     }
     
     if (err.response?.status === 401) {

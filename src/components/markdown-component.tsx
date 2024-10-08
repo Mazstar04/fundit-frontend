@@ -13,22 +13,22 @@ const MarkdownComponent = ({ text }: {text:string} ) => {
                     },
                     p: {
                         props: {
-                            className: "text-[18px] leading-[1.8] tracking-[0.03em] mb-[28px]",
+                            className: "text-[18px] leading-[1.8] tracking-[0.03em]",
                         },
                     },
                     h1: {
                         props: {
-                            className: "text-[2em] font-[500] tracking-[.0125em] mb-[0.75rem]",
+                            className: "text-[2em] font-[500] tracking-[.0125em]",
                         },
                     },
                     h2: {
                         props: {
-                            className: "text-[25px] tracking-[.0125em] mb-[0.75rem] font-[500]",
+                            className: "text-[25px] tracking-[.0125em] font-[500]",
                         },
                     },
                     h3: {
                         props: {
-                            className: "text-[22px] font-[500] tracking-[.0125em] mb-[0.75rem]",
+                            className: "text-[22px] font-[500] tracking-[.0125em]",
                         },
                     },
                     h4: {

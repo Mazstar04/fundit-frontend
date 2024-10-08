@@ -36,7 +36,7 @@ const ImageCarousel = ({ imgPaths }: { imgPaths: string[] }) => {
         <div className="absolute top-3 right-3 bg-black bg-opacity-60 text-white font-urbanist px-2 py-1 rounded-lg font-500 text-[12px]">
           {currentImageIndex + 1}/{imgPaths.length}
         </div>
-        <div className="absolute w-full h-full flex items-center justify-between px-4">
+        <div className="absolute z-10 w-full h-full flex items-center justify-between px-4">
           <button
             className=" h-[28px] w-[28px] rounded-[50%] bg-black bg-opacity-60 flex items-center justify-center text-white"
             onClick={showPrevImage}
@@ -79,12 +79,12 @@ const ImageCarousel = ({ imgPaths }: { imgPaths: string[] }) => {
         {isModalOpen && (
           <div className=" fixed inset-0  bg-black bg-opacity-80 flex items-center justify-center z-50">
             <button
-              className="absolute top-6 right-10 text-white "
+              className="absolute z-10 top-6 right-10 text-white "
               onClick={closeModal}
             >
               <LiaTimesSolid size={25} />
             </button>
-            <div className="absolute w-[85vw] h-[100vh] flex items-center justify-between mx-auto">
+            <div className="absolute z-10 w-[85vw] h-[100vh] flex items-center justify-between mx-auto">
               <button className="  text-white" onClick={showPrevImage}>
                 <IoIosArrowBack size={30} />
               </button>

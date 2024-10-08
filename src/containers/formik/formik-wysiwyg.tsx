@@ -32,7 +32,7 @@ const FormikWysiwyg: React.FC<FormikWysiwygProps> = ({
               }
             }}
             className={`mb-10 `}
-            style={{ height: "200px" }}
+            style={{ height: "350px" }}
           />
         </div>
       )}

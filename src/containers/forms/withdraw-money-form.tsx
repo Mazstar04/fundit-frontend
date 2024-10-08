@@ -5,14 +5,24 @@ import { FormikHelpers, useFormikContext } from "formik";
 import * as Yup from "yup";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { toast } from "react-toastify";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { useMutation } from "@tanstack/react-query";
+import api from "@/api";
+import { toast } from "react-toastify";
 
-const WithdrawMoneyForm = ({ maxWithdrawal }: { maxWithdrawal: number }) => {
+const WithdrawMoneyForm = ({
+  maxWithdrawal,
+  refetch,
+  setIsOpen,
+}: {
+  maxWithdrawal: number;
+  refetch: () => void;
+  setIsOpen: (isOpen: boolean) => void;
+}) => {
   const [bankOptions, setBankOptions] = useState<
     { label: string; value: string }[]
   >([]);
-  const [selectedBankCode, setSelectedBankCode] = useState<string>("");
+  
 
   const initialValues = {
     bankName: "",
@@ -21,6 +31,10 @@ const WithdrawMoneyForm = ({ maxWithdrawal }: { maxWithdrawal: number }) => {
     accountName: "",
     amount: "",
   };
+
+  const withdrawMutation = useMutation({
+    mutationFn: api.transaction.withdraw<any>,
+  });
 
   // Form validation schema
   const WithdrawMoneySchema = Yup.object().shape({
@@ -32,7 +46,7 @@ const WithdrawMoneyForm = ({ maxWithdrawal }: { maxWithdrawal: number }) => {
       .max(maxWithdrawal, `Insufficient wallet balance`),
   });
 
-  const PAYSTACK_KEY = "sk_test_79e68e6100a58bec3e75aaf1782fb5fa407ad7b0";
+  const PAYSTACK_KEY = process.env.NEXT_PUBLIC_PAYSTACK_KEY;
 
   // Fetch bank options from Paystack
   useEffect(() => {
@@ -86,7 +100,14 @@ const WithdrawMoneyForm = ({ maxWithdrawal }: { maxWithdrawal: number }) => {
       bankName: bankOptions.find((bank) => bank.value === values.bankName)
         ?.label,
     };
-    console.log("Form values:", data);
+    try {
+      const response = await withdrawMutation.mutateAsync(data);
+      toast.success(response.message);
+      refetch();
+      setIsOpen(false);
+    } catch (e: any) {
+      toast.error(e);
+    }
   };
 
   return (
@@ -99,6 +120,7 @@ const WithdrawMoneyForm = ({ maxWithdrawal }: { maxWithdrawal: number }) => {
         bankOptions={bankOptions}
         resolveAccountName={resolveAccountName}
         maxWithdrawal={maxWithdrawal}
+        withdrawing={withdrawMutation.isPending}
       />
     </FormikForm>
   );
@@ -108,12 +130,14 @@ interface WithdrawMoneyFieldsProps {
   bankOptions: { label: string; value: string }[];
   resolveAccountName: (bankCode: string, accountNo: string) => Promise<string>;
   maxWithdrawal: number;
+  withdrawing: boolean;
 }
 
 const WithdrawMoneyFields: React.FC<WithdrawMoneyFieldsProps> = ({
   bankOptions,
   resolveAccountName,
   maxWithdrawal,
+  withdrawing,
 }) => {
   const { setFieldValue, getFieldMeta } = useFormikContext();
   const [selectedBankCode, setSelectedBankCode] = useState<string>("");
@@ -200,7 +224,11 @@ const WithdrawMoneyFields: React.FC<WithdrawMoneyFieldsProps> = ({
         placeholder="Enter amount to withdraw"
         required
       />
-      <BasicButton className="mt-2 block w-full" text="Withdraw" />
+      <BasicButton
+        className="mt-2 block w-full"
+        text="Withdraw"
+        loading={withdrawing}
+      />
     </div>
   );
 };

@@ -17,6 +17,10 @@ import IPagedRequest from './requests/i-paged-request';
 import IPagedResponse from './requests/responses/i-paged-response';
 import IListResponse from './requests/responses/i-list-response';
 import IGetUserResponse from './requests/responses/i-get-user-details';
+import IGetDonationResponse from './requests/responses/i-get-donation-response';
+import IGetWithdrawalResponse from './requests/responses/i-get-withdrawal-response';
+import IGetCampaignsResponse from './requests/responses/i-get-campaigns-response';
+import IGetStatsResponse from './requests/responses/i-get-stats-response';
 import IPagination from './requests/i-pagination';
 import INavOption from './i-nav-option';
 import ICampaign from './i-campaign';
@@ -50,4 +54,8 @@ export type {
   IWithdrawal,
   IRevenue,
   ICampaign,
+  IGetCampaignsResponse,
+  IGetDonationResponse,
+  IGetWithdrawalResponse,
+  IGetStatsResponse,
 };

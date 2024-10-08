@@ -3,60 +3,24 @@ import { CellContext } from '@tanstack/react-table';
 import DataTable from '../table/data-table';
 import {  DonationMobileRowComponent, generateColumns } from '@/components';
 import { PiDotsThreeVerticalBold } from 'react-icons/pi';
-import usePaging from '@/hooks/use-paging';
 import { format } from 'date-fns';
 import { formatCurrency } from '@/utils/formatter';
+import useTableQuery from "@/hooks/use-table-query";
+import api from "@/api";
+import { useState } from 'react';
 
 const DonationsTable = () => {
-  const paging = usePaging();
-  const donations: IDonation[] = [
-    {
-      id: "1",
-      campaignId: "101",
-      campaignTitle: "Help Build a School",
-      username: "John Doe",
-      amount: 500,
-      created: new Date("2024-10-01"),
-      status: "successful",
-    },
-    {
-      id: "2",
-      campaignId: "102",
-      campaignTitle: "Support Medical Aid",
-      username: "Jane Doe",
-      amount: 300,
-      created: new Date("2024-09-25"),
-      status: "pending",
-    },
-    {
-      id: "3",
-      campaignId: "103",
-      campaignTitle: "Clean Water Initiative",
-      username: "Michael Smith",
-      amount: 1000,
-      created: new Date("2024-10-02"),
-      status: "successful",
-    },
-    {
-      id: "4",
-      campaignId: "101",
-      campaignTitle: "Help Build a School",
-      username: "Emily Jones",
-      amount: 700,
-      created: new Date("2024-09-28"),
-      status: "failed",
-    },
-    {
-      id: "5",
-      campaignId: "104",
-      campaignTitle: "Disaster Relief Fund",
-      username: "David Clark",
-      amount: 200,
-      created: new Date("2024-10-03"),
-      status: "successful",
-    }
-  ];
   
+  const [filters, setFilters] = useState({
+    search: "",
+  });
+
+  const { data, isLoading, paging, refetch } = useTableQuery({
+    queryName: "donations",
+    queryFunction: api.transaction.getDonations,
+    filters,
+  });
+
   const columnsConfig: ITableColumnConfig[] = [
     {
       header: 'Name',
@@ -124,10 +88,10 @@ const DonationsTable = () => {
   return (
     <div className="rounded-t-[10px] overflow-hidden">
       <DataTable
-        data={donations}
+        data={data}
         columns={generateColumns(columnsConfig)}
         paging={paging}
-        loading={false}
+        loading={isLoading}
         hasMobileComponent={true}
         expandedComponent={(data) => <DonationMobileRowComponent donation={data} />}
         actions={[

@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import { TbCurrencyNaira } from "react-icons/tb";
 import Badge from "./badge";
 import { HiUsers } from "react-icons/hi2";
+import { MdOutlineShare } from "react-icons/md";
+import { toast } from "react-toastify";
 
 interface CampaignCardProps {
   campaign: ICampaign;
@@ -18,9 +20,20 @@ const TourCardComponent: React.FC<CampaignCardProps> = ({
   const router = useRouter();
   const progressPercentage = (campaign.amountRaised / campaign.amount) * 100;
 
+  const copyLink = async () => {
+      const link = `${window.location.origin}/${campaign.id}`;
+      await navigator.clipboard.writeText(link);
+      toast.success(
+        isGuest
+          ? "Link copied!"
+          : "FundIt link copied!, share link with friends to start receiving donations!"
+      );
+    
+  };
+
   return (
     <Link
-     href={isGuest ? `/fund/${campaign.id}` : `/campaigns/${campaign.id}`}
+      href={isGuest ? `/fund/${campaign.id}` : `/campaigns/${campaign.id}`}
       className="border-[1px] border-[#E4E7EC] bg-white p-2 rounded-[8px] w-full h-auto md:min-h-[250px] flex flex-col md:flex-row gap-4"
     >
       <div
@@ -40,7 +53,7 @@ const TourCardComponent: React.FC<CampaignCardProps> = ({
       <div className="md:flex-1 flex flex-col gap-2 font-urbanist md:py-2 ">
         <h3 className="font-lexend text-[18px] font-[500]">{campaign.title}</h3>
         <p className="text-[10px] leading-[16px] md:flex-1">
-          {campaign.description}
+          {campaign.shortDescription}
         </p>
         <div className="flex items-center gap-2">
           <HiUsers size={15} color="#475467" />
@@ -62,10 +75,13 @@ const TourCardComponent: React.FC<CampaignCardProps> = ({
             style={{ width: `${progressPercentage}%` }}
           ></div>
         </div>
-        <div className="flex gap-2 md:justify-end items-end md:flex-1 mt-2">
+        <div className="flex gap-2 md:justify-end items-center md:flex-1 mt-2">
           {campaign.amountRaised >= campaign.amount && (
             <Badge title="Completed" />
           )}
+          <button onClick={copyLink}  className="rounded-[4px] w-[32px] h-[32px] p-1 flex items-center justify-center border-[1px] border-[#E4E7EC]">
+            <MdOutlineShare size={20} />
+          </button>
         </div>
       </div>
     </Link>

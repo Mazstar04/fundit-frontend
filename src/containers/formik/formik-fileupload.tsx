@@ -32,7 +32,7 @@ export default function FormikFileUpload({
       const formData = new FormData();
       formData.append("file", file);
       const res = await uploadDocumentMutation.mutateAsync(formData);
-      return res?.imageUrl;
+      return res?.data;
     });
 
     try {

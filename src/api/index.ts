@@ -1,12 +1,14 @@
 import * as auth from './auth.requests';
-import * as user from './user.requests';
+import * as campaign from './campaign.requests';
+import * as transaction from './transaction.requests';
 import * as documeent from './document.requests';
 
 
 const apiExport = {
   auth,
-  user,
+  campaign,
   documeent,
+  transaction,
 };
 
 export default apiExport;

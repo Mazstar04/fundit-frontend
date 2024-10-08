@@ -21,7 +21,7 @@ const TourCardComponent: React.FC<CampaignCardProps> = ({
   const progressPercentage = (campaign.amountRaised / campaign.amount) * 100;
 
   const copyLink = async () => {
-      const link = `${window.location.origin}/${campaign.id}`;
+      const link = `${window.location.origin}/fund/${campaign.id}`;
       await navigator.clipboard.writeText(link);
       toast.success(
         isGuest

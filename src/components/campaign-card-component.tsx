@@ -21,14 +21,15 @@ const TourCardComponent: React.FC<CampaignCardProps> = ({
   const progressPercentage = (campaign.amountRaised / campaign.amount) * 100;
 
   const copyLink = async () => {
-      const link = `${window.location.origin}/fund/${campaign.id}`;
-      await navigator.clipboard.writeText(link);
-      toast.success(
-        isGuest
-          ? "Link copied!"
-          : "FundIt link copied!, share link with friends to start receiving donations!"
-      );
-    
+    const campaignInfo = `${campaign.title}\n\n${campaign.shortDescription}\n\n`;
+    const link = `${window.location.origin}/fund/${campaign.id}`;
+    const textToCopy = `${campaignInfo}${link}`;
+    await navigator.clipboard.writeText(textToCopy);
+    toast.success(
+      isGuest
+        ? "Campaign details and link copied!"
+        : "FundIt campaign details and link copied! Share with friends to start receiving donations!"
+    );
   };
 
   return (

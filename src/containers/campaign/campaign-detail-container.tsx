@@ -30,23 +30,19 @@ const CampaignDetailContainer = ({
   isGuest?: boolean;
 }) => {
   const router = useRouter();
-  const params = useParams();
-  const { id } = params;
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const copyLink = async () => {
-    if (id) {
-      const link = `${window.location.origin}/fund/${id}`;
-      await navigator.clipboard.writeText(link);
-      toast.success(
-        isGuest
-          ? "Link copied!"
-          : "FundIt link copied!, share link with friends to start receiving donations!"
-      );
-    } else {
-      console.log("ID is not available yet.");
-    }
+    const campaignInfo = `${campaign.title}\n\n${campaign.shortDescription}\n\n`;
+    const link = `${window.location.origin}/fund/${campaign.id}`;
+    const textToCopy = `${campaignInfo}${link}`;
+    await navigator.clipboard.writeText(textToCopy);
+    toast.success(
+      isGuest
+        ? "Link copied!"
+        : "FundIt link copied!, share link with friends to start receiving donations!"
+    );
   };
 
   const actions: ICampaignActions[] = isGuest
@@ -174,7 +170,10 @@ const CampaignDetailContainer = ({
         setIsOpen={setIsOpen}
       >
         <div>
-          <DonateForm maxDonation={campaign.amount - campaign.amountRaised} campaignId={id.toString()}/>
+          <DonateForm
+            maxDonation={campaign.amount - campaign.amountRaised}
+            campaignId={campaign.id.toString()}
+          />
         </div>
       </ModalContainer>
     </div>

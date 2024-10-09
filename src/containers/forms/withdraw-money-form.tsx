@@ -139,7 +139,7 @@ const WithdrawMoneyFields: React.FC<WithdrawMoneyFieldsProps> = ({
   maxWithdrawal,
   withdrawing,
 }) => {
-  const { setFieldValue, getFieldMeta } = useFormikContext();
+  const { setFieldValue, getFieldMeta, setFieldTouched } = useFormikContext();
   const [selectedBankCode, setSelectedBankCode] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -155,20 +155,22 @@ const WithdrawMoneyFields: React.FC<WithdrawMoneyFieldsProps> = ({
         placeholder="Select Bank"
         isSearchable
         options={bankOptions}
-        onChange={async (e: any) => {
-          setFieldValue("bankName", e);
-          const selectedBank = bankOptions.find((bank) => bank.value === e);
-          const bankCode = selectedBank?.value || "";
+        onChange={(selectedOption: any) => {
+          const bankCode = selectedOption?.value || "";
+          setFieldValue("bankName", bankCode);
+          setFieldTouched("bankName", true);
           setSelectedBankCode(bankCode);
           setFieldValue("bankCode", bankCode);
+          
           if ((accountNoMeta.value as string).length === validAccountLength) {
             setLoading(true);
-            const accountName = await resolveAccountName(
-              bankCode,
-              accountNoMeta.value as string
-            );
-            setFieldValue("accountName", accountName);
-            setLoading(false);
+            resolveAccountName(bankCode, accountNoMeta.value as string)
+              .then((accountName) => {
+                setFieldValue("accountName", accountName);
+              })
+              .finally(() => {
+                setLoading(false);
+              });
           }
         }}
         required

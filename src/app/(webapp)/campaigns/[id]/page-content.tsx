@@ -14,7 +14,7 @@ const PageContent = () => {
 
   const breadcrumbs = [
     { label: "Menu", path: "/" },
-    { label: "Campaigns", path: "/dashboard/campaigns" },
+    { label: "Campaigns", path: "/campaigns" },
     { label: "Campaign Detail" },
   ];
 

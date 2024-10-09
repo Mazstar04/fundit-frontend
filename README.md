@@ -45,7 +45,7 @@
    ```
 2. Navigate to the project directory:
    ```
-   cd fund-it
+   cd fundit-frontend
    ``` 
 3. Install dependencies:
    ```

@@ -37,6 +37,24 @@
 - **Database**: PostgreSQL
 - **Payment Gateway**: Paystack API
 
+## Installation
+
+1. Clone the repository:
+   ```
+   git clone https://github.com/Mazstar04/fundit-frontend.git
+   ```
+2. Navigate to the project directory:
+   ```
+   cd fund-it
+   ``` 
+3. Install dependencies:
+   ```
+   yarn install
+   ```
+4. Start the development server:
+   ```
+   yarn dev
+   ``` 
 
 ## Usage
 
